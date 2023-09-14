@@ -5,8 +5,8 @@
       <div class="container">
         <div class="movie__cont">
           <div class="movie">
-            <div v-for="movie in movies" :key="movie.id">
-              <a>
+            <div class="moviebox" v-for="movie in movies" :key="movie.id">
+              <router-link :to="'/MovieDetail' + movie.id">
                 <img
                   :src="
                     `https://image.tmdb.org/t/p/original` + movie.poster_path
@@ -15,7 +15,7 @@
                 />
                 <p class="title">{{ movie.title }}</p>
                 <p class="release">{{ movie.release_date }}</p>
-              </a>
+              </router-link>
             </div>
           </div>
         </div>
@@ -41,7 +41,7 @@ export default {
 
     const searchMovie = () => {
       fetch(
-        `https://api.themoviedb.org/3/movie/popular?api_key=${env.movieApiKey}&language=en-US&page=1`
+        `https://api.themoviedb.org/3/movie/now_playing?api_key=${env.movieApiKey}&language=en-US&page=1`
       ).then((responsive) =>
         responsive.json().then((data) => {
           movies.value = data.results;
