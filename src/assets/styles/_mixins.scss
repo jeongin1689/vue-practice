@@ -1,0 +1,36 @@
+/* border keyframe */
+$easeInOutQuint: cubic-bezier(0.86, 0, 0.07, 1);
+$timing: 0.4s;
+
+@mixin borderBeforeAfter {
+  content: "";
+  position: absolute;
+  height: 0;
+  width: 2px;
+  transition: height $timing $timing $easeInOutQuint,
+    width $timing $easeInOutQuint;
+}
+@mixin borderBefore {
+  box-shadow: 2px 2px 0 rgb(124, 124, 124, 1) inset;
+  bottom: 0;
+  left: 0;
+}
+@mixin borderAfter {
+  box-shadow: -2px -2px 0 rgb(124, 124, 124, 1) inset;
+  top: 0;
+  right: 0;
+}
+@mixin hoverBeforeAfter {
+  height: 100%;
+  width: 100%;
+  transition: height $timing $easeInOutQuint,
+    width $timing $timing $easeInOutQuint;
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,6 +1,134 @@
-// container 
-.container {
-    width: 1200px;
-    margin: 0 auto;
-    position: relative;
+.header {
+  position: fixed;
+  left: 0;
+  top: 0%;
+  overflow: hidden;
+  z-index: 1200;
+  width: 100%;
+  height: 80px;
+  color: #fff;
+  border-bottom: 2px solid rgba(51, 51, 51, 0.25);
+  display: flex;
+  align-items: center;
+  font-family: "Rajdhani", "Chosunilbo_myungjo";
+  font-weight: bold;
+  background: #111;
+  text-align: left;
+  .header__logo {
+    display: flex;
+    align-items: center;
+    padding-left: 36px;
+    .logo {
+      margin-right: 30px;
+    }
+    a {
+      svg {
+        fill: white;
+      }
+    }
+  }
+}
+.header__menu {
+  margin-left: 22px;
+  display: flex;
+  align-items: center;
+  flex: 2;
+  height: 80px;
+  ul {
+    display: flex;
+    flex: 0 0 70%;
+    justify-content: space-between;
+    li {
+      display: inline-block;
+      flex: 1;
+      height: 80px;
+      line-height: 80px;
+      span {
+        padding: 7.5px 16px;
+        font-size: 13px;
+        color: #f9f9f9;
+        cursor: pointer;
+      }
+    }
+    .sub_logo {
+      width: 40px;
+      height: 28px;
+      overflow: hidden;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+}
+.header__etc {
+  display: flex;
+  height: 80px;
+  ul {
+    display: flex;
+    align-items: center;
+    padding-right: 30px;
+    li {
+      .more_content_box {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background-color: #2b2a29;
+        svg {
+          fill: white;
+          width: 22px;
+          height: 27px;
+        }
+      }
+    }
+    .alert_box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+    .locale_box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      img {
+        width: 16px;
+        height: 16px;
+      }
+    }
+    .login_box {
+      margin: 0 10px;
+      a {
+        padding: 8px 16px;
+        height: 32px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #f9f9f9;
+        background: rgba(128, 128, 128, 0.2);
+        border-radius: 6.4px;
+      }
+    }
+    .join_box {
+      a {
+        padding: 8px 16px;
+        height: 32px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #f9f9f9;
+        background: rgb(11, 196, 226);
+        border-radius: 12px;
+      }
+    }
+  }
 }
