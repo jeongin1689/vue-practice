@@ -116,23 +116,53 @@
           역할군이 있습니다.
         </p>
       </div>
-      <div class="border_animation"></div>
-      <div class="slider">
-        <ul class="slides" :style="{ left: -width * current + 'px' }">
-          <li v-for="slide in slides" :key="slide.i">
-            <img :src="slide.src" alt="" />
-            <strong>{{ slide.name }}</strong>
-            <span>{{ slide.subname }}</span>
-          </li>
-        </ul>
-        <ul class="bullets">
-          <li
-            v-for="(slide, i) in slides"
+      <div class="slider_box">
+        <div class="slider_video_wrap">
+          <img src="@/assets/img/pentagon_border.png" alt="" />
+          <video
+            autoplay
+            muted
+            loop
+            controls
+            v-for="(video, i) in sliderVideoList"
+            :key="i"
+          >
+            <source :type="video.type" :src="video.src" />
+          </video>
+        </div>
+        <div class="slider_bg_area">
+          <img
+            v-for="slide in slides"
             :key="slide.i"
-            @click="selectSlide(i)"
-            v-html="i == current ? '&#9679;' : '&omicron;'"
-          ></li>
-        </ul>
+            :src="slide.src2"
+            :style="{ left: -width * current + 'px' }"
+          />
+        </div>
+        <div class="border_animation"></div>
+        <div class="slider">
+          <ul class="slides" :style="{ left: -width * current + 'px' }">
+            <li v-for="slide in slides" :key="slide.i">
+              <img :src="slide.src" alt="" />
+              <strong>{{ slide.name }}</strong>
+              <span>{{ slide.subname }}</span>
+            </li>
+          </ul>
+        </div>
+        <div class="bullets">
+          <div class="bullet_box">
+            <span
+              v-for="(slide, i) in slides"
+              :key="slide.i"
+              @click="selectSlide(i)"
+              v-html="i == current ? '&#9679;' : '&omicron;'"
+            ></span>
+          </div>
+          <div class="bullet_option_box">
+            <strong v-for="bullet in bullets" :key="bullet.i">{{
+              bullet.option
+            }}</strong>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -140,8 +170,6 @@
 
 <script>
 import Header from "@/components/Header.vue";
-// import Swiper from "@/components/SwiperInfo.vue";
-import "swiper/css";
 export default {
   name: "slider",
   components: {
@@ -149,40 +177,66 @@ export default {
   },
   data() {
     return {
+      bullets: [
+        {
+          option: "암살자",
+        },
+        {
+          option: "전사",
+        },
+        {
+          option: "마법사",
+        },
+        {
+          option: "원거리딜러",
+        },
+        {
+          option: "서포터",
+        },
+        {
+          option: "탱커",
+        },
+      ],
       slides: [
         {
           src: require("@/assets/img/Aakali.png"),
           name: "아칼리",
           subname: "섬기는 이 없는 암살자",
+          src2: require("@/assets/img/bg_option1.png"),
         },
         {
           src: require("@/assets/img/yasuo.png"),
           name: "야스오",
           subname: "용서받지 못한 자",
+          src2: require("@/assets/img/bg_option2.png"),
         },
         {
           src: require("@/assets/img/lux.png"),
           name: "럭스",
           subname: "광명의 소녀",
+          src2: require("@/assets/img/bg_option3.png"),
         },
         {
           src: require("@/assets/img/Jinx.png"),
           name: "징크스",
           subname: "난폭한 말괄량이",
+          src2: require("@/assets/img/bg_option4.png"),
         },
         {
           src: require("@/assets/img/Thresh.png"),
           name: "쓰레쉬",
           subname: "지옥의 간수",
+          src2: require("@/assets/img/bg_option5.png"),
         },
         {
           src: require("@/assets/img/leona.png"),
           name: "레오나",
           subname: "여명의 빛",
+          src2: require("@/assets/img/bg_option6.png"),
         },
       ],
       current: 0,
-      width: 800,
+      width: 700,
       timer: 0,
       videoList: [
         {
@@ -194,6 +248,12 @@ export default {
           className: "center_video",
           type: "video/mp4",
           src: "https://www.leagueoflegends.com/static/hero-3e934348790824f4b800524f96a93020.mp4",
+        },
+      ],
+      sliderVideoList: [
+        {
+          type: "video/mp4",
+          src: "https://www.leagueoflegends.com/static/assassin-26d5e794c9f73d8e76a435d97dcff92c.mp4",
         },
       ],
       articleList: [
@@ -227,7 +287,7 @@ export default {
   methods: {
     selectSlide: function (i) {
       this.current = i;
-      this.resetPlay();
+      //this.resetPlay();
     },
     resetPlay: function () {
       clearInterval(this.timer);
