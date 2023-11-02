@@ -131,12 +131,7 @@
           </video>
         </div>
         <div class="slider_bg_area">
-          <img
-            v-for="slide in slides"
-            :key="slide.i"
-            :src="slide.src2"
-            :style="{ left: -width * current + 'px' }"
-          />
+          <img v-for="slide in slides" :key="slide.i" :src="slide.src2" />
         </div>
         <div class="border_animation"></div>
         <div class="slider">
