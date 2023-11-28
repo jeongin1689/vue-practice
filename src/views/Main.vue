@@ -148,22 +148,35 @@
             <span
               v-for="(slide, i) in slides"
               :key="slide.i"
-              @click="selectSlide(i)"
-              v-html="i == current ? '&#9679;' : '&omicron;'"
-            ></span>
+              :class="{ active: slide == selected }"
+              @click="[selectSlide(i), currentActive(slide)]"
+            >
+              <strong>{{ slide.championtype }}</strong>
+              <img class="chamion_type_icon" :src="slide.championIcon" />
+            </span>
           </div>
-          <div class="bullet_option_box">
-            <strong v-for="bullet in bullets" :key="bullet.i">{{
-              bullet.option
-            }}</strong>
-          </div>
+          <div class="bullet_option_box"></div>
         </div>
+      </div>
+    </div>
+    <div class="parallax_content">
+      <div class="background_wrap">
+        <!-- <div class="img_border_box"></div> -->
+        <img
+          v-for="(el, i) in img1"
+          :key="i"
+          class="bg_img2"
+          :style="{
+            transform: `translate(${el.x}px, ${el.y}px)`,
+          }"
+          :src="el.src"
+        />
       </div>
     </div>
     <Footer />
   </div>
 </template>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
 <script>
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
@@ -175,67 +188,60 @@ export default {
   },
   data() {
     return {
-      bullets: [
-        {
-          option: "암살자",
-        },
-        {
-          option: "전사",
-        },
-        {
-          option: "마법사",
-        },
-        {
-          option: "원거리딜러",
-        },
-        {
-          option: "서포터",
-        },
-        {
-          option: "탱커",
-        },
-      ],
       slides: [
         {
           src: require("@/assets/img/Aakali.png"),
           name: "아칼리",
           subname: "섬기는 이 없는 암살자",
           src2: require("@/assets/img/bg_option1.png"),
+          championtype: "암살자",
+          championIcon: require("@/assets/img/bg_option1.png"),
         },
         {
           src: require("@/assets/img/yasuo.png"),
           name: "야스오",
           subname: "용서받지 못한 자",
           src2: require("@/assets/img/bg_option2.png"),
+          championtype: "전사",
+          championIcon: require("@/assets/img/bg_option2.png"),
         },
         {
           src: require("@/assets/img/lux.png"),
           name: "럭스",
           subname: "광명의 소녀",
           src2: require("@/assets/img/bg_option3.png"),
+          championtype: "마법사",
+          championIcon: require("@/assets/img/bg_option3.png"),
         },
         {
           src: require("@/assets/img/Jinx.png"),
           name: "징크스",
           subname: "난폭한 말괄량이",
           src2: require("@/assets/img/bg_option4.png"),
+          championtype: "원거리딜러",
+          championIcon: require("@/assets/img/bg_option4.png"),
         },
         {
           src: require("@/assets/img/Thresh.png"),
           name: "쓰레쉬",
           subname: "지옥의 간수",
           src2: require("@/assets/img/bg_option5.png"),
+          championtype: "서포터",
+          championIcon: require("@/assets/img/bg_option5.png"),
         },
         {
           src: require("@/assets/img/leona.png"),
           name: "레오나",
           subname: "여명의 빛",
           src2: require("@/assets/img/bg_option6.png"),
+          championtype: "탱커",
+          championIcon: require("@/assets/img/bg_option6.png"),
         },
       ],
       current: 0,
       width: 700,
       timer: 0,
+      selected: 0,
       videoList: [
         {
           className: "background_video",
@@ -280,23 +286,67 @@ export default {
             "신화급 아이템을 없애는 이유와 아이템 체계의 미래를 말씀드립니다.",
         },
       ],
+      img1: [],
+      halfX: window.innerWidth / 2,
+      halfY: window.innerHeight / 2,
     };
   },
+  mounted() {
+    this.initImages();
+    this.initMousemoveListener();
+  },
   methods: {
-    selectSlide: function (i) {
+    initImages() {
+      // 각 이미지에 대한 정보를 추가
+      this.img1.push({
+        x: 0,
+        y: 0,
+        src: "https://www.leagueoflegends.com/static/championstyle_02-ec1e19123689c03a81b99180faae71e8.png", // 첫 번째 이미지 소스
+      });
+
+      this.img1.push({
+        x: 0,
+        y: 0,
+        src: "https://www.leagueoflegends.com/static/championstyle_01-ba6337ba3f72c510905ea99f3937ffd7.png", // 두 번째 이미지 소스
+      });
+
+      this.img1.push({
+        x: 0,
+        y: 0,
+        src: "https://www.leagueoflegends.com/static/assassin-two-a5ebf8c8bc37fff89abf4dbbf4e347ed.png", // 세 번째 이미지 소스
+      });
+
+      // TweenMax를 사용하여 이미지에 애니메이션 적용
+      this.img1.forEach((el) => {
+        TweenMax.to(el, 1, {
+          z: el.z,
+        });
+      });
+    },
+    initMousemoveListener() {
+      document.addEventListener("mousemove", (e) => {
+        this.img1.forEach((el, i) => {
+          TweenMax.to(el, 2, {
+            x: (e.clientX - this.halfX) * (i + 1) * 0.01,
+            y: (e.clientY - this.halfY) * (i + 1) * 0.01,
+          });
+        });
+      });
+    },
+    selectSlide(i) {
       this.current = i;
       //this.resetPlay();
     },
-    resetPlay: function () {
+    resetPlay() {
       clearInterval(this.timer);
       //this.play();
     },
-    nextSlide: function () {
+    nextSlide() {
       this.current++;
       if (this.current >= this.slides.length) this.current = 0;
       this.resetPlay();
     },
-    prevSlide: function () {
+    prevSlide() {
       this.current--;
       if (this.current < 0) this.current = this.slides.length - 1;
       this.resetPlay();
@@ -307,9 +357,9 @@ export default {
     //     app.nextSlide();
     //   }, 2000);
     // },
-  },
-  created: function () {
-    //this.play();
+    currentActive(index) {
+      this.selected = index;
+    },
   },
 };
 </script>
