@@ -161,7 +161,13 @@
     </div>
     <div class="parallax_content">
       <div class="background_wrap">
-        <!-- <div class="img_border_box"></div> -->
+        <div id="canvas"></div>
+        <div class="img_border_box">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
         <img
           v-for="(el, i) in img1"
           :key="i"
@@ -173,21 +179,34 @@
         />
       </div>
     </div>
+    <Particle />
     <Footer />
   </div>
 </template>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.0.1/dist/gsap.min.js"></script>
 <script>
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
+import Particle from "@/components/Particle.vue";
+import carousel from "vue-owl-carousel";
 export default {
-  name: "slider",
   components: {
     Header,
     Footer,
+    carousel,
+    Particle,
   },
   data() {
     return {
+      plugin: null,
+      options: {
+        autoplay: true,
+        item: 1,
+        startPosition: 2,
+        autoplayTimeout: 2000,
+      },
       slides: [
         {
           src: require("@/assets/img/Aakali.png"),
@@ -305,7 +324,7 @@ export default {
       });
 
       this.img1.push({
-        x: 0,
+        x: -30,
         y: 0,
         src: "https://www.leagueoflegends.com/static/championstyle_01-ba6337ba3f72c510905ea99f3937ffd7.png", // 두 번째 이미지 소스
       });
@@ -318,7 +337,7 @@ export default {
 
       // TweenMax를 사용하여 이미지에 애니메이션 적용
       this.img1.forEach((el) => {
-        TweenMax.to(el, 1, {
+        TweenMax.to(el, 2, {
           z: el.z,
         });
       });
@@ -326,7 +345,7 @@ export default {
     initMousemoveListener() {
       document.addEventListener("mousemove", (e) => {
         this.img1.forEach((el, i) => {
-          TweenMax.to(el, 2, {
+          TweenMax.to(el, 5, {
             x: (e.clientX - this.halfX) * (i + 1) * 0.01,
             y: (e.clientY - this.halfY) * (i + 1) * 0.01,
           });
@@ -335,11 +354,11 @@ export default {
     },
     selectSlide(i) {
       this.current = i;
-      //this.resetPlay();
+      this.resetPlay();
     },
     resetPlay() {
       clearInterval(this.timer);
-      //this.play();
+      this.play();
     },
     nextSlide() {
       this.current++;
@@ -351,12 +370,12 @@ export default {
       if (this.current < 0) this.current = this.slides.length - 1;
       this.resetPlay();
     },
-    // play: function () {
-    //   let app = this;
-    //   this.timer = setInterval(function () {
-    //     app.nextSlide();
-    //   }, 2000);
-    // },
+    play: function () {
+      let app = this;
+      this.timer = setInterval(function () {
+        app.nextSlide();
+      }, 2000);
+    },
     currentActive(index) {
       this.selected = index;
     },
