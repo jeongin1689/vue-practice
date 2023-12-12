@@ -22,7 +22,7 @@
           alt=""
         />
         <div class="join_btn">
-          <button>무료로 플레이하기</button>
+          <button class="blue_btn">무료로 플레이하기</button>
         </div>
       </div>
     </div>
@@ -178,8 +178,34 @@
           :src="el.src"
         />
       </div>
+      <div class="main_sub_title_area abs">
+        <div class="main_sub_title_box white">
+          <p>챔피언 스킨</p>
+        </div>
+      </div>
+      <div class="para_content_text_box">
+        <span class="bold">개성있는</span>
+        <strong class="more_bold">챔피언</strong>
+        <p class="para_content_text">
+          스킨으로 좋아하는 챔피언의 외형을 변경해 보세요.
+        </p>
+        <button class="blue_btn">지금 플레이하기</button>
+      </div>
     </div>
     <Particle />
+    <div class="main_video_wrap">
+      <video autoplay muted loop controls class="background_video large">
+        <source
+          type="video/mp4"
+          src="https://assets.contentstack.io/v3/assets/blt731acb42bb3d1659/bltbb792e3456cb02b7/5f4959269586f1653fc65a1b/ss2020_urgot_vi_cait_1920x1080.mp4"
+        />
+      </video>
+      <div class="main_logo center">
+        <div class="join_btn">
+          <button class="blue_btn">무료로 플레이하기</button>
+        </div>
+      </div>
+    </div>
     <Footer />
   </div>
 </template>
