@@ -197,7 +197,7 @@
       <video autoplay muted loop controls class="background_video large">
         <source
           type="video/mp4"
-          src="https://assets.contentstack.io/v3/assets/blt731acb42bb3d1659/bltbb792e3456cb02b7/5f4959269586f1653fc65a1b/ss2020_urgot_vi_cait_1920x1080.mp4"
+          src="https://assets.contentstack.io/v3/assets/blt731acb42bb3d1659/bltfa2accf67922dd3a/5f495972a11538653ea58f65/ss2020_lux_sylas_1920x1080.mp4"
         />
       </video>
       <div class="main_logo center">
